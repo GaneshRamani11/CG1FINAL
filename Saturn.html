@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<title>Computer Graphics Project </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif;
+	font-family: cursive;}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;background: #222;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+</style>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+ <a href="Main_Page.html" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="/Submission1/Main_page.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-book w3-xxlarge"></i>
+    <p>Submission 1 </p>
+  </a>
+  <a href="/Submission2/Main_page.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-book w3-xxlarge"></i>
+    <p>Submission 2 </p>
+  </a>
+  <a href="/Submission3/Main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-book w3-xxlarge"></i>
+    <p>Submission 3 </p>
+  </a>
+	<a href="/Submission4/Main.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-book w3-xxlarge"></i>
+    <p>Submission 4 </p>
+  </a>
+	<a href="/Submission5/MainTemplate.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-book w3-xxlarge"></i>
+    <p> Submission 5 </p>
+  </a>
+</nav>
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+ <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h2> Computer Graphics 1 </h2>
+  </header>
+<body onload="Texture();">
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="Main.html" class="w3-bar-item w3-button">Main Page</a>
+ <a href="Cube_with_GUI.html" class="w3-bar-item w3-button">Cube With GUI</a>
+  <a href="Sphere_with_GUI.html" class="w3-bar-item w3-button">Sphere With GUI</a>
+  <a href="Cylinder_withGUI.html" class="w3-bar-item w3-button">Cylinder With GUI</a>
+	<a href="Cone_withGUI.html" class="w3-bar-item w3-button">Cone With GUI</a>
+	<a href="Animation-1.html" class="w3-bar-item w3-button">Plane Geometry And Animation</a>
+	<a href="texturecube.html" class="w3-bar-item w3-button">Texture Mapped  Cube</a>
+	<a href="Bump.html" class="w3-bar-item w3-button">Texture and Bump Mapped  Sphere</a>
+</div>
+
+<div id="main">
+
+<div class="w3-teal">
+  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1>Project Submission - 3</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+
+</div>
+
+	
+</div>
+<script src="http://threejs.org/build/three.min.js"></script>
+<script src="TrackballControls.js"></script>
+<script src="OrbitControls.js"></script>
+	<script src="dat.gui.js"></script>
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+	<script>
+	function Texture(){
+	texture = new THREE.TextureLoader().load( "8k_earth_nightmap.jpg" );
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(95, 1600/600, 0.05, 10000);
+    var renderer = new THREE.WebGLRenderer({});
+    renderer.setSize(1600,600);
+		camera.position.z = 3; camera.position.y = 2; camera.position.x = 2;
+    document.body.appendChild(renderer.domElement);
+    var geometry = new THREE.SphereGeometry(   30,
+		32,32
+
+);
+    var material = new THREE.MeshPhongMaterial( 
+		{map:texture ,
+		 transparent:true ,
+		 overdraw: 0.5,
+		 shininess: 50,
+		 side: THREE.DoubleSide,
+		 side:THREE.FrontSide,
+side:THREE.BackSide,
+side:THREE.DoubleSide
+		} );
+    var sphere = new THREE.Mesh( geometry, material );
+    scene.add( sphere );
+		
+		var ringgeometry= new THREE.RingGeometry(1.2 * 30, 2 * 30, 2 * 32, 5, 0, Math.PI * 2);
+		
+var ringmaterial= new THREE.MeshBasicMaterial({
+	map: THREE.ImageUtils.loadTexture('saturnringcolor.jpg'),
+	side: THREE.FrontSide,
+	transparent: true, 
+	opacity: 0.6 });
+		
+		 var ring = new THREE.Mesh( ringgeometry, ringmaterial );
+		scene.add(ring);
+		
+		
+    camera.position.z = 1000;
+	sphere.scale.x = -1;
+	 orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+        orbitControl.addEventListener('change', render);
+        orbitControl.enableZoom = true;
+	    orbitControl.minDistance = 50;
+	     orbitControl.enableRotate = true;
+	 orbitControl.maxDistance=300;
+	var light = new THREE.AmbientLight('white', 4);
+	light.position.set(15,13,15);
+	scene.add(light);
+
+    function render() {
+		sphere.rotation.x +=0.0001;
+		ring.rotation.z +=0.0001;
+        requestAnimationFrame(render);
+        
+
+
+        renderer.render(scene, camera);
+    }
+    render();
+
+}
+	
+	</script>
+
+</body>
+</html>
+
+
+
